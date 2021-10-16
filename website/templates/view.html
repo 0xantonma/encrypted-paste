@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+   <code style="font-size: 16px; background-color: #232323;">
+
+
+      {% if invalid %}
+      <h1>Error!</h1>
+      <div class="alert alert-danger" style="width: 500px; margin: 0 auto; text-align: center;">
+         {% if invalid == 2 %}
+            Incorrect password! The note with ID: {{ id }} has been destroyed.
+         {% else %}
+         The note with id <b>{{ id }}</b> was read and destroyed.
+         <br /> <Br />
+         If you haven't read this note it means someone else has.
+         <br />
+
+
+         {% endif %}
+      </div>
+      {% endif %}
+
+
+      {% if item %}
+      <h1>Note contents</h1>
+      {{ item }}
+      {% endif %}
+
+
+
+      {% if confirm %}
+      <h1>Read and destroy?</h1>
+      <br />
+      <p>You're about to read and destroy the note with id <b>{{ id }}</b>.</p> <br />
+      <form action="" method="POST">
+         {% csrf_token %}
+         <div class="form-group">
+            <input type="text" name="decryptionKey" required class="form-control">
+         </div>
+         <div class="form-group">
+            <button class="btn btn-dark" type="submit">Yes, show me the note.</button>
+            <a href="{% url 'home' %}" class="btn btn-dark">No, not now.</a>
+         </div>
+      </form>
+      {% endif %}
+
+
+
+   </code>
+</div>
+{% endblock %}
